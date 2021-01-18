@@ -242,7 +242,7 @@ public class FragmentSnap extends Fragment {
             }
 
             @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+            public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
                 if(response.isSuccessful()){
                     String jsonData = response.body().string();
                     try {
@@ -275,13 +275,25 @@ public class FragmentSnap extends Fragment {
                             }
                         });
 
-
-
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialogLoading.dismiss();
+                                Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 }else{
                     Log.i("RESPONSE FAIL", response.body().string());
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialogLoading.dismiss();
+                            Toast.makeText(getContext(), "Error: " + response.message().toString() , Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
         });
