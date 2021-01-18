@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FragmentSnap">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:layout_marginTop="40dp"
+            android:adjustViewBounds="true"
+            android:background="#0093A368"
+            android:maxWidth="350dp"
+            android:maxHeight="350dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_launcher_icon_foreground" />
+
+        <TextView
+            android:id="@+id/imageName"
+            android:layout_width="350sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="No Image Selected"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/sciNameField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/epilogue"
+            android:text="Scientific Name"
+            android:textSize="15dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/sciName"
+            app:layout_constraintTop_toBottomOf="@+id/imageName" />
+
+        <TextView
+            android:id="@+id/sciName"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/epilogue_bold"
+            android:textSize="18dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sciNameField" />
+
+        <TextView
+            android:id="@+id/accuracyField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/epilogue"
+            android:text="Accuracy"
+            android:textSize="15dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/sciName"
+            app:layout_constraintTop_toBottomOf="@+id/sciName" />
+
+        <TextView
+            android:id="@+id/accuracy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/epilogue_bold"
+            android:text="100%"
+            android:textAlignment="center"
+            android:textSize="18dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toEndOf="@+id/accuracyField"
+            app:layout_constraintTop_toBottomOf="@+id/sciName" />
+
+        <ImageButton
+            android:id="@+id/btnSnap"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/button_snap"
+            android:fontFamily="@font/epilogue_light"
+            android:src="@drawable/custom_icon_camera_medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnSearch"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/button_snap"
+            android:fontFamily="@font/epilogue_light"
+            android:src="@drawable/custom_icon_search_medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/btnSnap" />
+
+        <ImageButton
+            android:id="@+id/btnClear"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/button_snap"
+            android:fontFamily="@font/epilogue_light"
+            android:src="@drawable/custom_icon_close_medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnSnap"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="140dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/button_primary"
+            android:fontFamily="@font/epilogue_light"
+            android:minWidth="125dp"
+            android:text="View Details"
+            android:textColor="@color/white"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sciName" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

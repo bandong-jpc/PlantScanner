@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "557781975739",
+    "project_id": "plantscanner-44527",
+    "storage_bucket": "plantscanner-44527.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557781975739:android:67a5ccaa9a4865b7d41f9e",
+        "android_client_info": {
+          "package_name": "com.example.plantscanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557781975739-65o1a8obl16on4v43dsnuo3cd86qsrht.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.plantscanner",
+            "certificate_hash": "d0f565a02efa34e91df81b504dad8473e0c01282"
+          }
+        },
+        {
+          "client_id": "557781975739-bt0fgcch40t92904eg7ifridk0dv5k1v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1wGoPV-kcZIJC4fdIa3Po_bA8Q_fw7pU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557781975739-bt0fgcch40t92904eg7ifridk0dv5k1v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
