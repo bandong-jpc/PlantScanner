@@ -24,7 +24,7 @@ import java.io.IOException;
 
 public class ActivityPlantDetails extends AppCompatActivity {
     ImageButton btnBack;
-    Button btnContribute;
+    Button btnContribute, btnCancel, btnSubmit;
     EditText etMedicinalUse, etLocalName;
     TextView accuracy, sciName, tvContribute, imageName;
     ImageView imageView;
@@ -33,6 +33,8 @@ public class ActivityPlantDetails extends AppCompatActivity {
     FirebaseFirestore firebaseFirestore;
 
     String fileName, filePath;
+
+    boolean isEditing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,8 @@ public class ActivityPlantDetails extends AppCompatActivity {
 
         btnBack = findViewById(R.id.btnBack);
         btnContribute = findViewById(R.id.btnContribute);
+        btnCancel = findViewById(R.id.btnCancel);
+        btnSubmit = findViewById(R.id.btnSubmit);
 
         etLocalName = findViewById(R.id.etLocalName);
         etMedicinalUse = findViewById(R.id.etMedicinalUse);
@@ -59,6 +63,9 @@ public class ActivityPlantDetails extends AppCompatActivity {
 
         etMedicinalUse.setEnabled(false);
         etLocalName.setEnabled(false);
+
+        btnSubmit.setVisibility(View.INVISIBLE);
+        btnCancel.setVisibility(View.INVISIBLE);
 
         if(firebaseAuth.getCurrentUser() != null){
             btnContribute.setVisibility(View.VISIBLE);
@@ -82,9 +89,46 @@ public class ActivityPlantDetails extends AppCompatActivity {
             }
         });
 
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleButtons();
+            }
+        });
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleButtons();
+            }
+        });
+
+        btnContribute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleButtons();
+            }
+        });
 
 
+    }
 
+    private void toggleButtons(){
+        if(isEditing){
+            etLocalName.setEnabled(false);
+            etMedicinalUse.setEnabled(false);
+            btnCancel.setVisibility(View.INVISIBLE);
+            btnSubmit.setVisibility(View.INVISIBLE);
+            btnContribute.setVisibility(View.VISIBLE);
+            isEditing = false;
+        }else{
+            etLocalName.setEnabled(true);
+            etMedicinalUse.setEnabled(true);
+            btnCancel.setVisibility(View.VISIBLE);
+            btnSubmit.setVisibility(View.VISIBLE);
+            btnContribute.setVisibility(View.INVISIBLE);
+            isEditing = true;
+        }
     }
 
     private void imageViewInit(){
