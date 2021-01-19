@@ -1,5 +1,6 @@
 package com.example.plantscanner;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,12 +16,21 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ActivityPlantDetails extends AppCompatActivity {
     ImageButton btnBack;
@@ -32,9 +42,11 @@ public class ActivityPlantDetails extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
 
-    String fileName, filePath;
+    String fileName, filePath, localName = "", medicinalUse="", sName, userName = "";
 
     boolean isEditing = false;
+
+    double numericAccuracy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +80,7 @@ public class ActivityPlantDetails extends AppCompatActivity {
         btnCancel.setVisibility(View.INVISIBLE);
 
         if(firebaseAuth.getCurrentUser() != null){
+            userName = intent.getStringExtra("uName");
             btnContribute.setVisibility(View.VISIBLE);
             tvContribute.setVisibility(View.INVISIBLE);
         }else{
@@ -75,10 +88,13 @@ public class ActivityPlantDetails extends AppCompatActivity {
             tvContribute.setVisibility(View.VISIBLE);
         }
 
+        imageName.setText(intent.getStringExtra("fileName"));
+        sName = intent.getStringExtra("sciName");
         accuracy.setText(intent.getStringExtra("accuracy"));
-        sciName.setText(intent.getStringExtra("sciName"));
+        sciName.setText(sName);
         fileName = intent.getStringExtra("fileName");
         filePath = intent.getStringExtra("filePath");
+        numericAccuracy = intent.getDoubleExtra("numericAccuracy", 0);
 
         imageViewInit();
 
@@ -97,8 +113,54 @@ public class ActivityPlantDetails extends AppCompatActivity {
         });
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
+
+            Map<String, Object> plantMap = new HashMap<String, Object>();
+
+            DialogLoading dialogLoading = new DialogLoading();
+
             @Override
             public void onClick(View v) {
+                dialogLoading.show(getSupportFragmentManager(), "LOADING");
+
+                if(etLocalName.getText().toString().equalsIgnoreCase("")){
+                    etLocalName.setError("Field cannot be empty.");
+                    return;
+                }
+                if(etMedicinalUse.getText().toString().equalsIgnoreCase("")){
+                    etMedicinalUse.setError("Field cannot be empty.");
+                    return;
+                }
+                if(numericAccuracy < .5){
+                    accuracy.setError("Accuracy must be greater than 50%");
+                    return;
+                }
+
+
+                plantMap.put("status", "pending");
+                plantMap.put("file", fileName);
+                plantMap.put("localName", etLocalName.getText().toString());
+                plantMap.put("medicinalUse", etMedicinalUse.getText().toString());
+                plantMap.put("contributorUID", firebaseAuth.getCurrentUser().getUid());
+                plantMap.put("contributor", userName);
+
+                firebaseFirestore.collection("plants").document(sName).set(plantMap)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(ActivityPlantDetails.this, "Data submitted for review.", Toast.LENGTH_SHORT).show();
+                                dialogLoading.dismiss();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(ActivityPlantDetails.this, "Submission failed. " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Log.i("FIRESTORE DEBUG", e.getMessage());
+                                dialogLoading.dismiss();
+                            }
+                        });
+
+
                 toggleButtons();
             }
         });

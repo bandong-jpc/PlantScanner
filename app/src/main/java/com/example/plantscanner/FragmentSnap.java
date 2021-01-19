@@ -72,6 +72,8 @@ public class FragmentSnap extends Fragment {
 
     private static final int IMAGE_REQUEST = 1;
 
+    double numericAccuracy;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         fAuth = FirebaseAuth.getInstance();
@@ -154,6 +156,12 @@ public class FragmentSnap extends Fragment {
                 intent.putExtra("filePath", currentImagePath);
                 intent.putExtra("sciName", sciName.getText().toString());
                 intent.putExtra("accuracy", accuracy.getText().toString());
+
+                String uName = ((Home)getActivity()).tvUser.getText().toString();
+
+                intent.putExtra("uName", uName);
+                intent.putExtra("numericAccuracy", numericAccuracy);
+
                 startActivity(intent);
             }
         });
@@ -280,6 +288,8 @@ public class FragmentSnap extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                numericAccuracy = acc;
+
                                 sciName.setText(sciN);
                                 accuracy.setText(toPercentage(acc));
 
