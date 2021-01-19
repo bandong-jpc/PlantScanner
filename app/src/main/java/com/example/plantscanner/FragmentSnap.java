@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
@@ -63,6 +64,8 @@ public class FragmentSnap extends Fragment {
     String currentImagePath = null;
     String imgFileName = "";
 
+    FirebaseAuth fAuth;
+
     MediaType MEDIA_TYPE = MediaType.parse("image/jpg");
 
     private final OkHttpClient client = new OkHttpClient();
@@ -71,6 +74,8 @@ public class FragmentSnap extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        fAuth = FirebaseAuth.getInstance();
+
         super.onCreate(savedInstanceState);
 
     }
@@ -145,6 +150,10 @@ public class FragmentSnap extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ActivityPlantDetails.class);
+                intent.putExtra("fileName", imgFileName);
+                intent.putExtra("filePath", currentImagePath);
+                intent.putExtra("sciName", sciName.getText().toString());
+                intent.putExtra("accuracy", accuracy.getText().toString());
                 startActivity(intent);
             }
         });
@@ -204,7 +213,9 @@ public class FragmentSnap extends Fragment {
 
     private File getImageFile()throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageName = "PS_"+timeStamp;
+        String uid = "";
+        if(fAuth.getCurrentUser() != null) uid = fAuth.getCurrentUser().getUid();
+        String imageName = "PS_"+ uid +"_"+timeStamp;
         File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
         File imageFile = File.createTempFile(imageName, ".jpg", storageDir);
@@ -236,9 +247,18 @@ public class FragmentSnap extends Fragment {
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
+            Runnable dismissDialog = new Runnable() {
+                @Override
+                public void run() {
+                    dialogLoading.dismiss();
+                    Toast.makeText(getContext(), "Error cannot connect to server." , Toast.LENGTH_SHORT).show();
+                }
+            };
+
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 e.printStackTrace();
+                getActivity().runOnUiThread(dismissDialog);
             }
 
             @Override
@@ -277,23 +297,11 @@ public class FragmentSnap extends Fragment {
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                dialogLoading.dismiss();
-                                Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        getActivity().runOnUiThread(dismissDialog);
                     }
                 }else{
                     Log.i("RESPONSE FAIL", response.body().string());
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            dialogLoading.dismiss();
-                            Toast.makeText(getContext(), "Error: " + response.message().toString() , Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    getActivity().runOnUiThread(dismissDialog);
                 }
             }
         });
