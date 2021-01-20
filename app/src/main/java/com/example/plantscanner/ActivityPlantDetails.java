@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,6 +28,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,6 +46,8 @@ public class ActivityPlantDetails extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
+    StorageReference storageRef;
+    UploadTask uploadTask;
 
     String fileName, filePath, localName = "", medicinalUse="", sName, userName = "";
 
@@ -57,6 +64,7 @@ public class ActivityPlantDetails extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
+        storageRef = FirebaseStorage.getInstance().getReference();
 
         btnBack = findViewById(R.id.btnBack);
         btnContribute = findViewById(R.id.btnContribute);
@@ -96,6 +104,8 @@ public class ActivityPlantDetails extends AppCompatActivity {
         filePath = intent.getStringExtra("filePath");
         numericAccuracy = intent.getDoubleExtra("numericAccuracy", 0);
 
+
+
         imageViewInit();
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +130,7 @@ public class ActivityPlantDetails extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                dialogLoading.show(getSupportFragmentManager(), "LOADING");
+
 
                 if(etLocalName.getText().toString().equalsIgnoreCase("")){
                     etLocalName.setError("Field cannot be empty.");
@@ -130,13 +140,14 @@ public class ActivityPlantDetails extends AppCompatActivity {
                     etMedicinalUse.setError("Field cannot be empty.");
                     return;
                 }
-                if(numericAccuracy < .5){
+                /*if(numericAccuracy < .5){
                     accuracy.setError("Accuracy must be greater than 50%");
                     return;
-                }
+                }*/
 
+                dialogLoading.show(getSupportFragmentManager(), "LOADING");
 
-                plantMap.put("status", "pending");
+                plantMap.put("isApproved", false);
                 plantMap.put("file", fileName);
                 plantMap.put("localName", etLocalName.getText().toString());
                 plantMap.put("medicinalUse", etMedicinalUse.getText().toString());
@@ -147,8 +158,9 @@ public class ActivityPlantDetails extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(ActivityPlantDetails.this, "Data submitted for review.", Toast.LENGTH_SHORT).show();
-                                dialogLoading.dismiss();
+                                uploadToFBStorage(dialogLoading);
+                                //Toast.makeText(ActivityPlantDetails.this, "Data submitted for review.", Toast.LENGTH_LONG).show();
+
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -221,4 +233,26 @@ public class ActivityPlantDetails extends AppCompatActivity {
         else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {  return 270; }
         return 0;
     }
+
+    private void uploadToFBStorage(final DialogLoading dialogLoading){
+        Uri file = Uri.fromFile(new File(filePath));
+        StorageReference fileRef = storageRef.child("images/"+file.getLastPathSegment());
+        uploadTask = fileRef.putFile(file);
+
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(ActivityPlantDetails.this, "Data submitted for review.", Toast.LENGTH_LONG).show();
+                dialogLoading.dismiss();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(ActivityPlantDetails.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                Log.i("STORAGE DEBUG", e.getMessage());
+
+            }
+        });
+    }
+
 }
