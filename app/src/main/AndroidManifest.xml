@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ActivityPlantDetails"></activity>
+        <activity android:name=".ActivityPlant"></activity>
+        <activity android:name=".ActivityPlantDetails" />
         <activity android:name=".Home" />
         <activity android:name=".MainActivity">
             <intent-filter>

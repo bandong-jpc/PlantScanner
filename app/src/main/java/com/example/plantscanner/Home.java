@@ -68,7 +68,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         toggle.syncState();
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentLibrary());
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentLibrary()).commit();
             navigationView.setCheckedItem(R.id.nav_collection);
         }
     }

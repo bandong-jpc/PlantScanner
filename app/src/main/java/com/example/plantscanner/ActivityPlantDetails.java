@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.model.Document;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -104,7 +105,22 @@ public class ActivityPlantDetails extends AppCompatActivity {
         filePath = intent.getStringExtra("filePath");
         numericAccuracy = intent.getDoubleExtra("numericAccuracy", 0);
 
+        DocumentReference docRef = firebaseFirestore.collection("plants").document(sName);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if(document.exists()){
+                        btnContribute.setVisibility(View.INVISIBLE);
+                        Log.d("DOCUTAG", "DocumentSnapshot data: " + document.getData());
 
+                        etLocalName.setText(document.getString("localName"));
+                        etMedicinalUse.setText(document.getString("medicinalUse"));
+                    }
+                }
+            }
+        });
 
         imageViewInit();
 
@@ -147,7 +163,7 @@ public class ActivityPlantDetails extends AppCompatActivity {
 
                 dialogLoading.show(getSupportFragmentManager(), "LOADING");
 
-                plantMap.put("isApproved", false);
+                plantMap.put("approved", false);
                 plantMap.put("file", fileName);
                 plantMap.put("localName", etLocalName.getText().toString());
                 plantMap.put("medicinalUse", etMedicinalUse.getText().toString());
