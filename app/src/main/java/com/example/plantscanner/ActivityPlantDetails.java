@@ -41,7 +41,7 @@ import java.util.Map;
 public class ActivityPlantDetails extends AppCompatActivity {
     ImageButton btnBack;
     Button btnContribute, btnCancel, btnSubmit;
-    EditText etMedicinalUse, etLocalName;
+    EditText etMedicinalUse, etLocalName, etBenefits;
     TextView accuracy, sciName, tvContribute, imageName;
     ImageView imageView;
 
@@ -74,6 +74,7 @@ public class ActivityPlantDetails extends AppCompatActivity {
 
         etLocalName = findViewById(R.id.etLocalName);
         etMedicinalUse = findViewById(R.id.etMedicinalUse);
+        etBenefits = findViewById(R.id.etBenefits);
 
         accuracy = findViewById(R.id.accuracy);
         sciName = findViewById(R.id.sciName);
@@ -84,6 +85,7 @@ public class ActivityPlantDetails extends AppCompatActivity {
 
         etMedicinalUse.setEnabled(false);
         etLocalName.setEnabled(false);
+        etBenefits.setEnabled(false);
 
         btnSubmit.setVisibility(View.INVISIBLE);
         btnCancel.setVisibility(View.INVISIBLE);
@@ -117,6 +119,7 @@ public class ActivityPlantDetails extends AppCompatActivity {
 
                         etLocalName.setText(document.getString("localName"));
                         etMedicinalUse.setText(document.getString("medicinalUse"));
+                        etBenefits.setText(document.getString("benefits"));
                     }
                 }
             }
@@ -156,6 +159,10 @@ public class ActivityPlantDetails extends AppCompatActivity {
                     etMedicinalUse.setError("Field cannot be empty.");
                     return;
                 }
+                if(etBenefits.getText().toString().equalsIgnoreCase("")){
+                    etBenefits.setError("Field cannot be empty.");
+                    return;
+                }
                 /*if(numericAccuracy < .5){
                     accuracy.setError("Accuracy must be greater than 50%");
                     return;
@@ -167,6 +174,7 @@ public class ActivityPlantDetails extends AppCompatActivity {
                 plantMap.put("file", fileName);
                 plantMap.put("localName", etLocalName.getText().toString());
                 plantMap.put("medicinalUse", etMedicinalUse.getText().toString());
+                plantMap.put("benefits", etBenefits.getText().toString());
                 plantMap.put("contributorUID", firebaseAuth.getCurrentUser().getUid());
                 plantMap.put("contributor", userName);
 
@@ -206,6 +214,7 @@ public class ActivityPlantDetails extends AppCompatActivity {
     private void toggleButtons(){
         if(isEditing){
             etLocalName.setEnabled(false);
+            etBenefits.setEnabled(false);
             etMedicinalUse.setEnabled(false);
             btnCancel.setVisibility(View.INVISIBLE);
             btnSubmit.setVisibility(View.INVISIBLE);
@@ -213,6 +222,7 @@ public class ActivityPlantDetails extends AppCompatActivity {
             isEditing = false;
         }else{
             etLocalName.setEnabled(true);
+            etBenefits.setEnabled(true);
             etMedicinalUse.setEnabled(true);
             btnCancel.setVisibility(View.VISIBLE);
             btnSubmit.setVisibility(View.VISIBLE);

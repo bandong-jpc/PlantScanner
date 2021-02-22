@@ -21,7 +21,7 @@ public class ActivityPlant extends AppCompatActivity {
 
     ImageButton btnBack;
 
-    TextView sciName2, etLocalName2, etMedicinalUse2, contributor;
+    TextView sciName2, etLocalName2, etMedicinalUse2, contributor, benefits2;
     ImageView imageView2;
 
     @Override
@@ -35,6 +35,7 @@ public class ActivityPlant extends AppCompatActivity {
         etLocalName2 = findViewById(R.id.etLocalName2);
         etMedicinalUse2 = findViewById(R.id.etMedicinalUse2);
         contributor = findViewById(R.id.contributor);
+        benefits2 = findViewById(R.id.etBenefits2);
 
         imageView2 = findViewById(R.id.imageView2);
 
@@ -44,6 +45,7 @@ public class ActivityPlant extends AppCompatActivity {
         etLocalName2.setText(intent.getStringExtra("localName"));
         etMedicinalUse2.setText(intent.getStringExtra("medicinalUse"));
         contributor.setText(intent.getStringExtra("contributor"));
+        benefits2.setText(intent.getStringExtra("benefits"));
 
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
 
