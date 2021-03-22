@@ -132,8 +132,8 @@
             android:gravity="top|left"
             android:hint="None"
             android:inputType="textMultiLine"
-            android:lines="3"
-            android:maxLines="3"
+            android:lines="5"
+            android:maxLines="8"
             android:minWidth="350dp"
             android:padding="10dp"
             android:textSize="20sp" />
@@ -158,8 +158,8 @@
             android:gravity="top|left"
             android:hint="None"
             android:inputType="textMultiLine"
-            android:lines="2"
-            android:maxLines="2"
+            android:lines="5"
+            android:maxLines="8"
             android:minWidth="350dp"
             android:padding="10dp"
             android:textSize="20sp" />
