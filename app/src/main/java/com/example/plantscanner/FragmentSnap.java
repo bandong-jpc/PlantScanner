@@ -157,9 +157,9 @@ public class FragmentSnap extends Fragment {
                 intent.putExtra("sciName", sciName.getText().toString());
                 intent.putExtra("accuracy", accuracy.getText().toString());
 
-                String uName = ((Home)getActivity()).tvUser.getText().toString();
+                /*String uName = ((Home)getActivity()).tvUser.getText().toString();*/
 
-                intent.putExtra("uName", uName);
+                /*intent.putExtra("uName", uName);*/
                 intent.putExtra("numericAccuracy", numericAccuracy);
 
                 startActivity(intent);

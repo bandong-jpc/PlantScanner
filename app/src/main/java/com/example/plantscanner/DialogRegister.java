@@ -106,7 +106,7 @@ public class DialogRegister extends AppCompatDialogFragment {
 
                             DialogRegister.super.dismiss();
                             getFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentProfileUser()).commit();
-                            ((Home)getActivity()).tvUser.setText(fullname);
+                            /*((Home)getActivity()).tvUser.setText(fullname);*/
 
                         }else{
                             try{

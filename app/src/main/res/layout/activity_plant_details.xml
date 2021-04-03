@@ -177,21 +177,21 @@
             android:padding="10dp"
             android:textSize="20sp" />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/tvLoginToContributeTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/epilogue"
-            android:text="Login to contribute!" />
+            android:text="Login to contribute!" />-->
 
-        <LinearLayout
+        <!--<LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_gravity="center_horizontal"
-            >
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnCancel"
@@ -202,6 +202,7 @@
                 android:fontFamily="@font/epilogue_light"
                 android:text="Cancel"
                 android:textSize="10dp" />
+
             <Button
                 android:id="@+id/btnContribute"
                 android:layout_width="wrap_content"
@@ -211,6 +212,7 @@
                 android:fontFamily="@font/epilogue_light"
                 android:text="Contribute"
                 android:textSize="10dp" />
+
             <Button
                 android:id="@+id/btnSubmit"
                 android:layout_width="wrap_content"
@@ -221,7 +223,7 @@
                 android:text="Submit"
                 android:textSize="10dp" />
 
-        </LinearLayout>
+        </LinearLayout>-->
 
 
     </LinearLayout>

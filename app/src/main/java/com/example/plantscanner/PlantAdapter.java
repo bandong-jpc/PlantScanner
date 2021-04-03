@@ -53,7 +53,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
                     Intent intent = new Intent(context, ActivityPlant.class);
                     intent.putExtra("sciName", sciName);
                     intent.putExtra("file", plant.file);
-                    intent.putExtra("contributor", plant.contributor);
+                    /*intent.putExtra("contributor", plant.contributor);*/
                     intent.putExtra("medicinalUse", plant.medicinalUse);
                     intent.putExtra("localName", plant.localName);
                     intent.putExtra("benefits", plant.benefits);
@@ -81,7 +81,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
         storageRef.child("images/"+plantMap.get(ids.get(position)).getFile()).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
-                Picasso.get().load(task.getResult()).rotate(90).placeholder(R.drawable.logo_leaves).into(holder.im);
+                Picasso.get().load(task.getResult()).placeholder(R.drawable.logo_leaves).into(holder.im);
             }
         });
 

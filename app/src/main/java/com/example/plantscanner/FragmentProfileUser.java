@@ -45,7 +45,7 @@ public class FragmentProfileUser extends Fragment {
             public void onClick(View v) {
                 fAuth.signOut();
                 getFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentProfileGuest()).commit();
-                ((Home)getActivity()).tvUser.setText("Guest");
+                /*((Home)getActivity()).tvUser.setText("Guest");*/
             }
         });
 

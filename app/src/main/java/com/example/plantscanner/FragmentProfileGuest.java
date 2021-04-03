@@ -112,7 +112,7 @@ public class FragmentProfileGuest extends Fragment {
                                 @Override
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                                     Map<String, Object> user = documentSnapshot.getData();
-                                    ((Home)currentActivity).tvUser.setText(user.get("name").toString());
+                                    /*((Home)currentActivity).tvUser.setText(user.get("name").toString());*/
 
                                 }
                             });

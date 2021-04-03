@@ -40,9 +40,9 @@ import java.util.Map;
 
 public class ActivityPlantDetails extends AppCompatActivity {
     ImageButton btnBack;
-    Button btnContribute, btnCancel, btnSubmit;
+    /*Button btnContribute, btnCancel, btnSubmit;*/
     EditText etMedicinalUse, etLocalName, etBenefits;
-    TextView accuracy, sciName, tvContribute, imageName;
+    TextView accuracy, sciName, /*tvContribute,*/ imageName;
     ImageView imageView;
 
     FirebaseAuth firebaseAuth;
@@ -68,9 +68,9 @@ public class ActivityPlantDetails extends AppCompatActivity {
         storageRef = FirebaseStorage.getInstance().getReference();
 
         btnBack = findViewById(R.id.btnBack);
-        btnContribute = findViewById(R.id.btnContribute);
+       /* btnContribute = findViewById(R.id.btnContribute);
         btnCancel = findViewById(R.id.btnCancel);
-        btnSubmit = findViewById(R.id.btnSubmit);
+        btnSubmit = findViewById(R.id.btnSubmit);*/
 
         etLocalName = findViewById(R.id.etLocalName);
         etMedicinalUse = findViewById(R.id.etMedicinalUse);
@@ -78,7 +78,7 @@ public class ActivityPlantDetails extends AppCompatActivity {
 
         accuracy = findViewById(R.id.accuracy);
         sciName = findViewById(R.id.sciName);
-        tvContribute = findViewById(R.id.tvLoginToContributeTV);
+        /*tvContribute = findViewById(R.id.tvLoginToContributeTV);*/
         imageName = findViewById(R.id.imageName);
 
         imageView = findViewById(R.id.imageView);
@@ -87,17 +87,17 @@ public class ActivityPlantDetails extends AppCompatActivity {
         etLocalName.setEnabled(false);
         etBenefits.setEnabled(false);
 
-        btnSubmit.setVisibility(View.INVISIBLE);
+       /* btnSubmit.setVisibility(View.INVISIBLE);
         btnCancel.setVisibility(View.INVISIBLE);
 
         if(firebaseAuth.getCurrentUser() != null){
-            userName = intent.getStringExtra("uName");
+            *//*userName = intent.getStringExtra("uName");*//*
             btnContribute.setVisibility(View.VISIBLE);
-            tvContribute.setVisibility(View.INVISIBLE);
+            *//*tvContribute.setVisibility(View.INVISIBLE);*//*
         }else{
             btnContribute.setVisibility(View.INVISIBLE);
-            tvContribute.setVisibility(View.VISIBLE);
-        }
+            *//*tvContribute.setVisibility(View.VISIBLE);*//*
+        }*/
 
         imageName.setText(intent.getStringExtra("fileName"));
         sName = intent.getStringExtra("sciName");
@@ -114,7 +114,7 @@ public class ActivityPlantDetails extends AppCompatActivity {
                 if(task.isSuccessful()){
                     DocumentSnapshot document = task.getResult();
                     if(document.exists()  && document.getBoolean("approved")){
-                        btnContribute.setVisibility(View.INVISIBLE);
+                        /*btnContribute.setVisibility(View.INVISIBLE);*/
                         Log.d("DOCUTAG", "DocumentSnapshot data: " + document.getData());
 
                         etLocalName.setText(document.getString("localName"));
@@ -134,14 +134,14 @@ public class ActivityPlantDetails extends AppCompatActivity {
             }
         });
 
-        btnCancel.setOnClickListener(new View.OnClickListener() {
+        /*btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toggleButtons();
             }
-        });
+        });*/
 
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
+        /*btnSubmit.setOnClickListener(new View.OnClickListener() {
 
             Map<String, Object> plantMap = new HashMap<String, Object>();
 
@@ -163,10 +163,10 @@ public class ActivityPlantDetails extends AppCompatActivity {
                     etBenefits.setError("Field cannot be empty.");
                     return;
                 }
-                /*if(numericAccuracy < .5){
+                *//*if(numericAccuracy < .5){
                     accuracy.setError("Accuracy must be greater than 50%");
                     return;
-                }*/
+                }*//*
 
                 dialogLoading.show(getSupportFragmentManager(), "LOADING");
 
@@ -175,8 +175,8 @@ public class ActivityPlantDetails extends AppCompatActivity {
                 plantMap.put("localName", etLocalName.getText().toString());
                 plantMap.put("medicinalUse", etMedicinalUse.getText().toString());
                 plantMap.put("benefits", etBenefits.getText().toString());
-                plantMap.put("contributorUID", firebaseAuth.getCurrentUser().getUid());
-                plantMap.put("contributor", userName);
+                *//*plantMap.put("contributorUID", firebaseAuth.getCurrentUser().getUid());
+                plantMap.put("contributor", userName);*//*
 
                 firebaseFirestore.collection("plants").document(sName).set(plantMap)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -207,11 +207,11 @@ public class ActivityPlantDetails extends AppCompatActivity {
                 toggleButtons();
             }
         });
-
+*/
 
     }
 
-    private void toggleButtons(){
+    /*private void toggleButtons(){
         if(isEditing){
             etLocalName.setEnabled(false);
             etBenefits.setEnabled(false);
@@ -229,7 +229,7 @@ public class ActivityPlantDetails extends AppCompatActivity {
             btnContribute.setVisibility(View.INVISIBLE);
             isEditing = true;
         }
-    }
+    }*/
 
     private void imageViewInit(){
         Bitmap img = BitmapFactory.decodeFile(filePath);
@@ -260,7 +260,7 @@ public class ActivityPlantDetails extends AppCompatActivity {
         return 0;
     }
 
-    private void uploadToFBStorage(final DialogLoading dialogLoading){
+    /*private void uploadToFBStorage(final DialogLoading dialogLoading){
         Uri file = Uri.fromFile(new File(filePath));
         StorageReference fileRef = storageRef.child("images/"+file.getLastPathSegment());
         uploadTask = fileRef.putFile(file);
@@ -279,6 +279,6 @@ public class ActivityPlantDetails extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
 
 }

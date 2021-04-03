@@ -13,10 +13,10 @@
             android:icon="@drawable/selector_icon_camera"
             android:title="Snap" />
 
-        <item
+        <!--<item
             android:id="@+id/nav_profile"
             android:icon="@drawable/selector_icon_profile"
-            android:title="Profile" />
+            android:title="Profile" />-->
 
     </group>
 

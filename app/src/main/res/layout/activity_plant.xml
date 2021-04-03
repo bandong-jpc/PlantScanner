@@ -51,7 +51,7 @@
                 android:textSize="10dp"
                 android:visibility="visible" />
 
-            <TextView
+            <!--<TextView
                 android:id="@+id/contribField"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
                 android:fontFamily="@font/epilogue_bold"
                 android:text="User"
                 android:textSize="15dp"
-                android:visibility="visible" />
+                android:visibility="visible" />-->
 
         </LinearLayout>
 
