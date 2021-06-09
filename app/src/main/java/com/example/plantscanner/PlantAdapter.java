@@ -57,6 +57,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
                     intent.putExtra("medicinalUse", plant.medicinalUse);
                     intent.putExtra("localName", plant.localName);
                     intent.putExtra("benefits", plant.benefits);
+                    intent.putExtra("properUsage", plant.properUsage);
                     context.startActivity(intent);
                 }
             });

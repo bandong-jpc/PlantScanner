@@ -131,12 +131,11 @@
             android:fontFamily="@font/epilogue_bold"
             android:gravity="top|left"
             android:hint="None"
-            android:inputType="textMultiLine"
-            android:lines="5"
-            android:maxLines="8"
             android:minWidth="350dp"
             android:padding="10dp"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:scrollbars="vertical"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -157,13 +156,37 @@
             android:fontFamily="@font/epilogue_bold"
             android:gravity="top|left"
             android:hint="None"
-            android:inputType="textMultiLine"
-            android:lines="5"
-            android:maxLines="8"
             android:minWidth="350dp"
             android:padding="10dp"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:scrollbars="vertical"
+            />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/epilogue"
+            android:text="Proper Usage"
+            android:textSize="10dp" />
+
+        <TextView
+            android:id="@+id/etProperUsage2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:fontFamily="@font/epilogue_bold"
+            android:gravity="top|left"
+            android:hint="None"
+            android:minWidth="350dp"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:layout_marginBottom="25dp"
+            android:scrollbars="vertical"
+            />
 
     </LinearLayout>
 </ScrollView>

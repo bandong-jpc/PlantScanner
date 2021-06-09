@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -21,7 +22,7 @@ public class ActivityPlant extends AppCompatActivity {
 
     ImageButton btnBack;
 
-    TextView sciName2, etLocalName2, etMedicinalUse2, /*contributor,*/ benefits2;
+    TextView sciName2, etLocalName2, etMedicinalUse2, /*contributor,*/ benefits2, etProperUsage2;
     ImageView imageView2;
 
     @Override
@@ -32,10 +33,20 @@ public class ActivityPlant extends AppCompatActivity {
         btnBack = findViewById(R.id.btnBack2);
 
         sciName2 = findViewById(R.id.sciName2);
+
         etLocalName2 = findViewById(R.id.etLocalName2);
+        etLocalName2.setMovementMethod(new ScrollingMovementMethod());
+
         etMedicinalUse2 = findViewById(R.id.etMedicinalUse2);
+        etMedicinalUse2.setMovementMethod(new ScrollingMovementMethod());
+
         /*contributor = findViewById(R.id.contributor);*/
+
         benefits2 = findViewById(R.id.etBenefits2);
+        benefits2.setMovementMethod(new ScrollingMovementMethod());
+
+        etProperUsage2 = findViewById(R.id.etProperUsage2);
+        etProperUsage2.setMovementMethod(new ScrollingMovementMethod());
 
         imageView2 = findViewById(R.id.imageView2);
 
@@ -46,6 +57,7 @@ public class ActivityPlant extends AppCompatActivity {
         etMedicinalUse2.setText(intent.getStringExtra("medicinalUse"));
         /*contributor.setText(intent.getStringExtra("contributor"));*/
         benefits2.setText(intent.getStringExtra("benefits"));
+        etProperUsage2.setText(intent.getStringExtra("properUsage"));
 
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
 

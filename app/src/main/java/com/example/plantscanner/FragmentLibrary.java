@@ -115,7 +115,6 @@ public class FragmentLibrary extends Fragment {
 
     public void getData(final MyCallback callback){
         firebaseFirestore.collection("plants")
-                .whereEqualTo("approved", true)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

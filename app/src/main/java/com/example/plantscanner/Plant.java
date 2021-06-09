@@ -1,14 +1,14 @@
 package com.example.plantscanner;
 
 public class Plant {
-    public String   file, localName, medicinalUse, benefits;/*contributor, contributorUID,*/
+    public String   file, localName, medicinalUse, benefits, properUsage;/*contributor, contributorUID,*/
     public boolean approved;
 
     public Plant(){
 
     }
 
-    public Plant( String benefits, /*String contributor, String contributorUID,*/ String file, String localName, String medicinalUse, boolean approved) {
+    public Plant( String benefits, /*String contributor, String contributorUID,*/ String file, String localName, String medicinalUse, String properUsage, boolean approved) {
         this.benefits = benefits;
         /*this.contributor = contributor;
         this.contributorUID = contributorUID;*/
@@ -16,6 +16,7 @@ public class Plant {
         this.localName = localName;
         this.medicinalUse = medicinalUse;
         this.approved = approved;
+        this.properUsage = properUsage;
     }
 
     public String getBenefits() {
