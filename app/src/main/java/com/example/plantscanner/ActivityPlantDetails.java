@@ -126,7 +126,7 @@ public class ActivityPlantDetails extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()){
                     DocumentSnapshot document = task.getResult();
-                    if(document.exists()  && document.getBoolean("approved")){
+                    if(document.exists()){
                         /*btnContribute.setVisibility(View.INVISIBLE);*/
                         Log.d("DOCUTAG", "DocumentSnapshot data: " + document.getData());
 

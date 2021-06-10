@@ -64,7 +64,7 @@ public class ActivityPlant extends AppCompatActivity {
         storageRef.child("images/"+intent.getStringExtra("file")).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
-                Picasso.get().load(task.getResult()).rotate(90).placeholder(R.drawable.logo_leaves).into(imageView2);
+                Picasso.get().load(task.getResult()).placeholder(R.drawable.logo_leaves).into(imageView2);
             }
         });
 
