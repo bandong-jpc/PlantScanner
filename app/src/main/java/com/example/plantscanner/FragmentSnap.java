@@ -318,7 +318,7 @@ public class FragmentSnap extends Fragment {
     }
 
     public static String toPercentage(double n){
-        return String.format("%.2f", n);
+        return String.format("%.0f",n*100)+"%";
     }
 
 

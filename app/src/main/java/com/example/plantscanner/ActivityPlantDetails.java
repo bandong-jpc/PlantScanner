@@ -41,7 +41,7 @@ import java.util.Map;
 public class ActivityPlantDetails extends AppCompatActivity {
     ImageButton btnBack;
     /*Button btnContribute, btnCancel, btnSubmit;*/
-    EditText etMedicinalUse, etLocalName, etBenefits, etProperUsage;
+    TextView etMedicinalUse, etLocalName, etBenefits, etProperUsage;
     TextView accuracy, sciName, /*tvContribute,*/ imageName;
     ImageView imageView;
 
@@ -73,20 +73,12 @@ public class ActivityPlantDetails extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btnSubmit);*/
 
         etLocalName = findViewById(R.id.etLocalName);
-        etLocalName.setFocusableInTouchMode(false);
-        etLocalName.clearFocus();
 
         etMedicinalUse = findViewById(R.id.etMedicinalUse);
-        etMedicinalUse.setFocusableInTouchMode(false);
-        etMedicinalUse.clearFocus();
 
         etBenefits = findViewById(R.id.etBenefits);
-        etBenefits.setFocusableInTouchMode(false);
-        etBenefits.clearFocus();
 
         etProperUsage = findViewById(R.id.etProperUsage);
-        etProperUsage.setFocusableInTouchMode(false);
-        etProperUsage.clearFocus();
 
         accuracy = findViewById(R.id.accuracy);
         sciName = findViewById(R.id.sciName);
@@ -95,10 +87,6 @@ public class ActivityPlantDetails extends AppCompatActivity {
 
         imageView = findViewById(R.id.imageView);
 
-        etMedicinalUse.setEnabled(false);
-        etLocalName.setEnabled(false);
-        etBenefits.setEnabled(false);
-        etProperUsage.setEnabled(false);
 
        /* btnSubmit.setVisibility(View.INVISIBLE);
         btnCancel.setVisibility(View.INVISIBLE);
